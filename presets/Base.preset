@@ -73,6 +73,7 @@ HideSyncNotifications
 HideRecentShortcuts
 SetExplorerThisPC
 ShowThisPCOnDesktop
+DisableWindowsFeed
 Hide3DObjectsFromThisPC
 Hide3DObjectsFromExplorer
 HideShareMenu

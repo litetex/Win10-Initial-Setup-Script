@@ -963,6 +963,18 @@ Function EnableDefenderCloud {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "SubmitSamplesConsent" -ErrorAction SilentlyContinue
 }
 
+# Enable Force Windows Defender to use Sandbox
+Function EnableForceDefenderSandbox {
+	Write-Output "Enabling Forcing Windows Defender to use sandbox..."
+	[System.Environment]::SetEnvironmentVariable('MP_FORCE_USE_SANDBOX','1',[System.EnvironmentVariableTarget]::Machine)
+}
+
+# Disable Force Windows Defender to use Sandbox
+Function DisableForceDefenderSandbox {
+	Write-Output "Disabling Forcing Windows Defender to use sandbox..."
+	[System.Environment]::SetEnvironmentVariable('MP_FORCE_USE_SANDBOX',$null,[System.EnvironmentVariableTarget]::Machine)
+}
+
 # Enable Controlled Folder Access (Defender Exploit Guard feature) - Applicable since 1709, requires Windows Defender to be enabled
 Function EnableCtrldFolderAccess {
 	Write-Output "Enabling Controlled Folder Access..."
@@ -1487,6 +1499,48 @@ Function EnableUpdateRestart {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MusNotification.exe" -Name "Debugger" -ErrorAction SilentlyContinue
 }
 
+# Windows Updates are normally released on the second tuesday in the month
+# However in most occations after the updates have been released some bugs are reported
+# This options gives the possibility to check online for bug reports
+# or if Microsoft revokes the update
+Function EnableFeatureUpdateDelay {
+	Write-Output "Enabling Windows Feature Update delay (4 days)..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Force | Out-Null
+	}
+	# Enable delaying feature updates
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferFeatureUpdates" -Type DWord -Value 1
+	# Set the branch readiness to "Semi Annual Channel" (default)
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "BranchReadinessLevel" -Type DWord -Value 16
+	# Deplay updates for 4 days
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferFeatureUpdatesPeriodInDays" -Type DWord -Value 4
+}
+
+Function DisableFunctionUpdateDelay {
+	Write-Output "Disabling Windows Feature Update delay..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferFeatureUpdates" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "BranchReadinessLevel" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferFeatureUpdatesPeriodInDays" -ErrorAction SilentlyContinue
+}
+
+# See EnableFeatureUpdateDelay
+Function EnableQualityUpdateDelay {
+	Write-Output "Enabling Windows Quality Update delay (1 day)..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Force | Out-Null
+	}
+	# Enable delaying quality updates
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferQualityUpdates" -Type DWord -Value 1
+	# Deplay updates for 1 day
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferQualityUpdatesPeriodInDays" -Type DWord -Value 1
+}
+
+Function DisableQualityUpdateDelay {
+	Write-Output "Disabling Windows Quality Update delay..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferQualityUpdates" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Name "DeferQualityUpdatesPeriodInDays" -ErrorAction SilentlyContinue
+}
+
 # Disable nightly wake-up for Automatic Maintenance and Windows Updates
 Function DisableMaintenanceWakeUp {
 	Write-Output "Disabling nightly wake-up for Automatic Maintenance..."
@@ -1787,6 +1841,16 @@ Function DisableAutoRebootOnCrash {
 Function EnableAutoRebootOnCrash {
 	Write-Output "Enabling automatic reboot on crash (BSOD)..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "AutoReboot" -Type DWord -Value 1
+}
+
+# Sometimes the W32Time service is not started automatically, because the StartupType is set to Manual
+# This causes time specific problems like changing to DST fails
+# Fixes W32Time service: Sets the start mode to automatic
+Function FixW32Time {
+	Write-Output "Fixing W32Time service..."
+	Stop-Service -Name W32Time
+	Set-Service -Name W32Time -StartupType Automatic
+	Start-Service -Name W32Time
 }
 
 ##########

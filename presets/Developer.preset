@@ -1,0 +1,20 @@
+## This preset should be applied to a developers Privacy
+## Run it on top of Base.preset
+
+### Privacy Tweaks ###
+DisableSmartScreen
+DisableBiometrics
+
+### Security Tweaks ###
+DisableDefenderCloud
+
+### Service Tweaks ###
+EnableFeatureUpdateDelay
+EnableQualityUpdateDelay
+DisableAutorun
+
+### UI Tweaks ###
+DisableAeroShake
+
+### Explorer UI Tweaks ###
+ShowHiddenFiles

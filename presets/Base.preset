@@ -1,0 +1,105 @@
+## This preset should be applied to any computer
+## It won't break much, but it also won't do the best
+
+### Require administrator privileges ###
+RequireAdmin
+
+### Privacy Tweaks ###
+DisableTelemetry
+DisableCortana
+DisableWiFiSense
+DisableWebSearch
+DisableAppSuggestions
+DisableActivityHistory
+DisableSensors
+DisableLocation
+DisableMapUpdates
+DisableFeedback
+DisableTailoredExperiences
+DisableAdvertisingID
+DisableWebLangList
+DisableErrorReporting
+SetP2PUpdateDisable
+DisableWAPPush
+
+### UWP Privacy Tweaks ###
+DisableUWPBackgroundApps
+DisableUWPVoiceActivation
+DisableUWPAccountInfo
+DisableUWPContacts
+DisableUWPCalendar
+DisableUWPPhoneCalls
+DisableUWPCallHistory
+DisableUWPEmail
+DisableUWPMessaging
+DisableUWPRadios
+
+### Security Tweaks ###
+DisableAdminShares
+EnableForceDefenderSandbox
+HideAccountProtectionWarn
+DisableScriptHost
+EnableDotNetStrongCrypto
+
+### Network Tweaks ###
+SetCurrentNetworkPrivate
+DisableRemoteAssistance
+
+### Service Tweaks ###
+EnableUpdateMSProducts
+DisableMaintenanceWakeUp
+DisableSharedExperiences
+DisableClipboardHistory
+DisableAutoplay
+EnableHibernation
+FixW32Time
+
+### UI Tweaks ###
+DisableAccessibilityKeys
+ShowFileOperationsDetails
+EnableFileDeleteConfirm
+HideTaskbarPeopleIcon
+DisableSearchAppInStore
+DisableNewAppPrompt
+SetWinXMenuCmd
+SetControlPanelSmallIcons
+SetSystemDarkMode
+EnableNumlock
+DisableF1HelpKey
+
+### Explorer UI Tweaks ###
+ShowKnownExtensions
+HideSyncNotifications
+HideRecentShortcuts
+SetExplorerThisPC
+ShowThisPCOnDesktop
+Hide3DObjectsFromThisPC
+Hide3DObjectsFromExplorer
+HideShareMenu
+DisableThumbnailCache
+DisableThumbsDBOnNetwork
+
+### Application Tweaks ###
+DisableOneDrive
+UninstallOneDrive
+UninstallMsftBloat
+UninstallThirdPartyBloat
+DisableXboxFeatures
+DisableAdobeFlash
+DisableEdgePreload
+DisableEdgeShortcutCreation
+DisableIEFirstRun
+DisableFirstLogonAnimation
+DisableMediaSharing
+DisableMediaOnlineAccess
+UninstallHelloFace
+UninstallMathRecognizer
+SetPhotoViewerAssociation
+AddPhotoViewerOpenWith
+UninstallXPSPrinter
+
+### Unpinning ###
+UnpinStartMenuTiles
+
+### Auxiliary Functions ###
+WaitForKey

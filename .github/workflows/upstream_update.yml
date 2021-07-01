@@ -2,8 +2,8 @@ name: Pull detached upstream
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '22 2 1 * *'
+#  schedule:
+#    - cron: '22 2 1 * *'
   
   
 jobs:

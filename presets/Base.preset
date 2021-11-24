@@ -63,11 +63,12 @@ DisableSearchAppInStore
 DisableNewAppPrompt
 SetWinXMenuCmd
 SetControlPanelSmallIcons
+SetAppsDarkMode
 SetSystemDarkMode
 EnableNumlock
 DisableF1HelpKey
 DisableAeroShake
-SetSystemDarkMode
+
 
 ### Explorer UI Tweaks ###
 ShowKnownExtensions

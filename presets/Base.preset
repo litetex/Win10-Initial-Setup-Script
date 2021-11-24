@@ -66,6 +66,7 @@ SetControlPanelSmallIcons
 SetSystemDarkMode
 EnableNumlock
 DisableF1HelpKey
+DisableAeroShake
 
 ### Explorer UI Tweaks ###
 ShowKnownExtensions

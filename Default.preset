@@ -247,6 +247,7 @@ AddPhotoViewerOpenWith          # RemovePhotoViewerOpenWith
 UninstallXPSPrinter             # InstallXPSPrinter
 # RemoveFaxPrinter              # AddFaxPrinter
 # UninstallFaxAndScan           # InstallFaxAndScan
+DisablePCHealthCheck            # EnablePCHealthCheck
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin      # ShowServerManagerOnLogin

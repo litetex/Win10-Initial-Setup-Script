@@ -3319,7 +3319,7 @@ Function UninstallMsftBloat {
 	Get-AppxPackage "Microsoft.MinecraftUWP" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.MixedReality.Portal" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.MoCamera" | Remove-AppxPackage
-	Get-AppxPackage "Microsoft.MSPaint" | Remove-AppxPackage
+	Get-AppxPackage "Microsoft.MSPaint" | Remove-AppxPackage # This is not Paint, it's Paint 3D
 	Get-AppxPackage "Microsoft.NetworkSpeedTest" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.OfficeLens" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Office.OneNote" | Remove-AppxPackage
@@ -4012,6 +4012,42 @@ Function InstallFaxAndScan {
 	Write-Output "Installing Windows Fax and Scan Services..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "FaxServicesClientPackage" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Print.Fax.Scan*" } | Add-WindowsCapability -Online | Out-Null
+}
+
+# Uninstall and prvent re-installation of "PC Health Check" https://support.microsoft.com/en-us/topic/kb5005463-pc-health-check-application-e33cf4e2-49e2-4727-b913-f3c5b1ee0e56
+# See also https://github.com/farag2/Sophia-Script-for-Windows/blob/4f7bc2aa202f8abf358ec9a3e0a816c4e53fec12/src/Sophia_Script_for_Windows_10/Module/Sophia.psm1#L9062
+Function DisablePCHealthCheck {
+	Write-Output "Removing and preventing re-installation of PC Health Check..."
+	$Folder = (New-Object -ComObject Shell.Application).NameSpace("$env:SystemRoot\Installer")
+	$Files = [hashtable]::new()
+	$Folder.Items() | ForEach-Object -Process {$Files.Add($_.Name, $_)} | Out-Null
+	# Find the necessary .msi with the Subject property equal to "Windows PC Health Check"
+	foreach ($MSI in @(Get-ChildItem -Path "$env:SystemRoot\Installer" -Filter *.msi -File -Force))
+	{
+		$Name = $Files.Keys | Where-Object -FilterScript {$_ -eq $MSI.Name}
+		$File = $Files[$Name]
+
+		# https://learn.microsoft.com/en-us/previous-versions/tn-archive/ee176615(v=technet.10)
+		# "22" is the "Subject" file property
+		if ($Folder.GetDetailsOf($File, 22) -eq "Windows PC Health Check")
+		{
+			Start-Process -FilePath msiexec.exe -ArgumentList "/uninstall $($MSI.FullName) /quiet /norestart" -Wait
+			break
+		}
+	}
+
+	# Prevent the "PC Health Check" app from installing in the future
+	if (!(Test-Path -Path "HKLM:\SOFTWARE\Microsoft\PCHC"))
+	{
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PCHC" -Force
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PCHC" -Name "PreviousUninstall" -Type DWord -Value 1
+}
+
+# Allow re-installation of "PC Health Check"
+Function EnablePCHealthCheck {
+	Write-Output "Allowing re-installation of PC Health Check..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PCHC" -Name "PreviousUninstall" -ErrorAction SilentlyContinue
 }
 
 ##########

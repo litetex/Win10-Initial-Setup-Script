@@ -101,6 +101,7 @@ UninstallMathRecognizer
 SetPhotoViewerAssociation
 AddPhotoViewerOpenWith
 UninstallXPSPrinter
+DisablePCHealthCheck
 
 ### Unpinning ###
 UnpinStartMenuTiles

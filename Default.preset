@@ -260,6 +260,7 @@ DisablePCHealthCheck            # EnablePCHealthCheck
 ### Unpinning ###
 # UnpinStartMenuTiles
 # UnpinTaskbarIcons
+# RemovePinToStartContextMenu   # AddPinToStartContextMenu
 
 ### Auxiliary Functions ###
 WaitForKey

@@ -4190,6 +4190,44 @@ Function UnpinTaskbarIcons {
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue
 }
 
+
+Function RemovePinToStartContextMenu {
+	Write-Output "Removing Pin to Start from context menu..."
+	If (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	Remove-Item -Path "HKCR:\Folder\shellex\ContextMenuHandlers\PintoStartScreen" -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "HKCR:\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "HKCR:\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "HKCR:\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" -Recurse -ErrorAction SilentlyContinue
+}
+
+Function AddPinToStartContextMenu {
+	Write-Output "Adding Pin to Start to context menu..."
+	If (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	If (!(Test-Path "HKCR:\Folder\shellex\ContextMenuHandlers\PintoStartScreen")) {
+		New-Item -Path "HKCR:\Folder\shellex\ContextMenuHandlers\PintoStartScreen" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCR:\Folder\shellex\ContextMenuHandlers\PintoStartScreen" -Name "(Default)" -Type "String" -Value "{470C0EBD-5D73-4d58-9CED-E91E22E23282}"
+
+	If (!(Test-Path "HKCR:\exefile\shellex\ContextMenuHandlers\PintoStartScreen")) {
+		New-Item -Path "HKCR:\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCR:\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -Name "(Default)" -Type "String" -Value "{470C0EBD-5D73-4d58-9CED-E91E22E23282}"
+
+	If (!(Test-Path "HKCR:\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen")) {
+		New-Item -Path "HKCR:\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCR:\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" -Name "(Default)" -Type "String" -Value "{470C0EBD-5D73-4d58-9CED-E91E22E23282}"
+
+	If (!(Test-Path "HKCR:\mscfile\shellex\ContextMenuHandlers\PintoStartScreen")) {
+		New-Item -Path "HKCR:\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCR:\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" -Name "(Default)" -Type "String" -Value "{470C0EBD-5D73-4d58-9CED-E91E22E23282}"
+}
+
 ##########
 #endregion Unpinning
 ##########

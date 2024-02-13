@@ -16,3 +16,6 @@ DisableAutorun
 
 ### Explorer UI Tweaks ###
 ShowHiddenFiles
+
+### Unpinning ###
+RemovePinToStartContextMenu

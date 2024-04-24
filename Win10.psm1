@@ -1847,6 +1847,19 @@ Function EnableAutoRebootOnCrash {
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "AutoReboot" -Type DWord -Value 1
 }
 
+# See also https://www.tomshardware.com/how-to/auto-end-tasks-windows
+# Disable AutoEndTasks
+Function DisableAutoEndTasks {
+	Write-Output "Disabling AutoEndTasks..."
+	Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoEndTasks" -ErrorAction SilentlyContinue
+}
+
+# Enable AutoEndTasks
+Function EnableAutoEndTasks {
+	Write-Output "Enabling AutoEndTasks..."
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoEndTasks" -Type String -Value "1"
+}
+
 # Sometimes the W32Time service is not started automatically, because the StartupType is set to Manual
 # This causes time specific problems like changing to DST fails
 # Fixes W32Time service: Sets the start mode to automatic

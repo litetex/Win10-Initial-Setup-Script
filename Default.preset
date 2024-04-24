@@ -121,6 +121,7 @@ EnableHibernation               # DisableHibernation
 # DisableSleepTimeout           # EnableSleepTimeout
 # DisableFastStartup            # EnableFastStartup
 # DisableAutoRebootOnCrash      # EnableAutoRebootOnCrash
+# DisableAutoEndTasks           # EnableAutoEndTasks
 # FixW32Time
 
 ### UI Tweaks ###

@@ -1,2 +1,6 @@
 ## FOR TESTS ONLY ###
-# RemovePinToStartContextMenu
+
+### Require administrator privileges ###
+RequireAdmin
+
+# EnableAutoEndTasks

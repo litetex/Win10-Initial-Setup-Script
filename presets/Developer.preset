@@ -1,5 +1,8 @@
 ## Run it on top of Base.preset
 
+### Require administrator privileges ###
+RequireAdmin
+
 ### Privacy Tweaks ###
 DisableSmartScreen
 DisableBiometrics
@@ -11,6 +14,7 @@ DisableDefenderCloud
 EnableFeatureUpdateDelay
 EnableQualityUpdateDelay
 DisableAutorun
+EnableAutoEndTasks
 
 ### UI Tweaks ###
 

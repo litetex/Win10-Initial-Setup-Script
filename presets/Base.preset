@@ -68,7 +68,7 @@ SetSystemDarkMode
 EnableNumlock
 DisableF1HelpKey
 DisableAeroShake
-
+HideMeetNow
 
 ### Explorer UI Tweaks ###
 ShowKnownExtensions

@@ -2534,6 +2534,17 @@ Function EnableF1HelpKey {
 	Remove-Item "HKCU:\Software\Classes\TypeLib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0" -Recurse -ErrorAction SilentlyContinue
 }
 
+# Hide the Meet Now
+Function HideMeetNow {
+	Write-Output "Hiding Meet Now..."
+	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Type DWord -Value 1
+}
+
+Function ShowMeetNow {
+	Write-Output "Showing Meet Now..."
+	Remove-ItemProperty -Path"HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -ErrorAction SilentlyContinue
+}
+
 ##########
 #endregion UI Tweaks
 ##########

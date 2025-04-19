@@ -2534,7 +2534,6 @@ Function EnableF1HelpKey {
 	Remove-Item "HKCU:\Software\Classes\TypeLib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0" -Recurse -ErrorAction SilentlyContinue
 }
 
-# Hide the Meet Now
 Function HideMeetNow {
 	Write-Output "Hiding Meet Now..."
 	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Type DWord -Value 1
@@ -2543,6 +2542,18 @@ Function HideMeetNow {
 Function ShowMeetNow {
 	Write-Output "Showing Meet Now..."
 	Remove-ItemProperty -Path"HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -ErrorAction SilentlyContinue
+}
+
+Function HideSearchHighlights {
+	Write-Output "Hiding Search highlights..."
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Name "ShowDynamicContent" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 1
+}
+
+Function ShowSearchHighlights {
+	Write-Output "Showing Search highlights..."
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Name "ShowDynamicContent" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -ErrorAction SilentlyContinue
 }
 
 ##########

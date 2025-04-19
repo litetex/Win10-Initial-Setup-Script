@@ -69,6 +69,7 @@ EnableNumlock
 DisableF1HelpKey
 DisableAeroShake
 HideMeetNow
+HideSearchHighlights
 
 ### Explorer UI Tweaks ###
 ShowKnownExtensions

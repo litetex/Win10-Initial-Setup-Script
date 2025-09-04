@@ -3281,12 +3281,12 @@ Function EnableThumbsDBOnNetwork {
 
 Function EnableWin11ExtendedContextMenuByDefault {
 	Write-Output "Enabling Windows 11 extended context menu by default..."
-	Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -Type String -Value ""
+	New-Item -Path "HKCU:\Software\Classes\CLSID\{86CA1AA0-34AA-4E8B-A509-50C905BAE2A2}\InprocServer32" -Value "" -Force -ErrorAction SilentlyContinue | Out-Null
 }
 
 Function DisableWin11ExtendedContextMenuByDefault {
 	Write-Output "Disabling Windows 11 extended context menu by default..."
-	Remove-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -ErrorAction SilentlyContinue
+	Remove-Item -Path "HKCU:\Software\Classes\CLSID\{86CA1AA0-34AA-4E8B-A509-50C905BAE2A2}\InprocServer32" -ErrorAction SilentlyContinue
 }
 
 ##########

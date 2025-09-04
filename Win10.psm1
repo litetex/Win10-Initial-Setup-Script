@@ -3267,6 +3267,16 @@ Function EnableThumbsDBOnNetwork {
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisableThumbsDBOnNetworkFolders" -ErrorAction SilentlyContinue
 }
 
+Function EnableWin11ExtendedContextMenuByDefault {
+	Write-Output "Enabling Windows 11 extended context menu by default..."
+	Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -Type String -Value ""
+}
+
+Function DisableWin11ExtendedContextMenuByDefault {
+	Write-Output "Disabling Windows 11 extended context menu by default..."
+	Remove-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -ErrorAction SilentlyContinue
+}
+
 ##########
 #endregion Explorer UI Tweaks
 ##########

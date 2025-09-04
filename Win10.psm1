@@ -2556,6 +2556,18 @@ Function ShowSearchHighlights {
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -ErrorAction SilentlyContinue
 }
 
+Function DisableWindowsSpotlight {
+	Write-Output "Disabling Windows Spotlight..."
+	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableSpotlightCollectionOnDesktop" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableWindowsSpotlightFeatures" -Type DWord -Value 1
+}
+
+Function EnableWindowsSpotlight {
+	Write-Output "Enabling Windows Spotlight..."
+	Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableSpotlightCollectionOnDesktop" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableWindowsSpotlightFeatures" -ErrorAction SilentlyContinue
+}
+
 ##########
 #endregion UI Tweaks
 ##########

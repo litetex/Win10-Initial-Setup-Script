@@ -70,6 +70,7 @@ DisableF1HelpKey
 DisableAeroShake
 HideMeetNow
 HideSearchHighlights
+DisableWindowsSpotlight
 
 ### Explorer UI Tweaks ###
 ShowKnownExtensions

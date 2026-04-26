@@ -92,6 +92,7 @@ SetCurrentNetworkPrivate        # SetCurrentNetworkPublic
 # DisableConnectionSharing      # EnableConnectionSharing
 DisableRemoteAssistance         # EnableRemoteAssistance
 # EnableRemoteDesktop           # DisableRemoteDesktop
+DisableWpad                     # EnableWpad
 
 ### Service Tweaks ###
 # DisableUpdateMSRT             # EnableUpdateMSRT

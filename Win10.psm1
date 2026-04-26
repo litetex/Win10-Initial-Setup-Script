@@ -1406,6 +1406,20 @@ Function DisableRemoteDesktop {
 	Disable-NetFirewallRule -Name "RemoteDesktop*"
 }
 
+# https://projectblack.io/blog/disable-wpad-via-gpo/
+Function DisableWpad {
+	Write-Output "Disabling wpad..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp" -Name "DisableWpad" -Type DWord -Value 1
+	# volatile registry key - will disappear once applied
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" -Name "AutoDetect" -Type DWord -Value 0
+}
+
+Function EnableWpad {
+	Write-Output "Enabling wpad..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp" -Name "DisableWpad" -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" -Name "AutoDetect" -Type DWord -Value 1
+}
+
 ##########
 #endregion Network Tweaks
 ##########

@@ -4,3 +4,5 @@
 RequireAdmin
 
 # EnableAutoEndTasks
+
+WaitForKey

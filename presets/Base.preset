@@ -83,7 +83,6 @@ DisableWindowsFeed
 Hide3DObjectsFromThisPC
 Hide3DObjectsFromExplorer
 HideShareMenu
-DisableThumbnailCache
 DisableThumbsDBOnNetwork
 EnableWin11ExtendedContextMenuByDefault
 
